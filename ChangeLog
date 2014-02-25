@@ -1,0 +1,27 @@
+2014-02-25	V0.04
+- automatic search for gforth library path
+
+- bugfix create file with gforth 0.7.0
+    
+- sources moved to github
+ 
+
+2010-12-13	V0.03
+- 'create' and 'constant' for PIC
+
+-  simple words like variable!, variable-inc etc are defined only in pc forth vocabularies as strings,
+   no more as macro in asm file. This saves more than 90% of size of asm file.
+   
+-  optimizer eliminates byte>word word>byte sequences ( literal 16 -> store to 8 bit variable etc )
+
+-  optimizer makes warnings about literal out of range
+
+-  words like variable-inc, variable+! variable-and! etc 
+   are automatically defined when variable or fsr is defined
+ 
+    
+2010-12-04	V0.02
+-  Example program is fully functional now		
+
+2010-12-02	V0.01
+-  Initial version (PREALPHA)

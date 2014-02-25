@@ -1,0 +1,20 @@
+- defining the config of MPU from program
+- allocate of stack using possibly all inused memory
+- script for compiling allows using makefile
+- parallel pic and pc compiling to simplify testing during development
+- script for generating include files from gputils include files
+- includes for more MPUs
+- pre-compiling includes and libraries to speed up the compilation
+- documentation
+- possibility of compiling in bytestream (see the bytestream study)
+- libraries for periferials
+- optimize the generated program to avoid unneccessary push-pop
+- think about 8bit and 16bit values on stack. It is hard to write program mixing
+  8bit and 16bit values.
+- 8bit literals ( in this moment you must use construction like [ 123 ]l8  
+- more soffisticated macro 'mypageselw' to optimize code for MPUs with 0 or 1 program page
+  ( for 0 pages ignore the macro, for 1 page using bsf instruction )
+- libraries for MPUs with enhanced instruction set
+- scripts per Windows and Mac
+
+and many many more features

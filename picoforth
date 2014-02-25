@@ -1,0 +1,24 @@
+#!/bin/bash
+# picoforth compiler
+
+
+if [ $# -eq 0 ]
+then
+  echo "Usage picoforth <source file>"
+  exit 1
+fi
+
+GFORTH_LIB=`find /usr/lib/ -iname gforth.fi`
+if [ -z "$GFORTH_LIB" ]
+then
+  echo "Could not found gforth.fi"
+  exit 1
+fi
+GFORTH_LIB_PATH=`dirname $GFORTH_LIB`
+HEXFILENAME=`dirname $1`/`basename $1 .fp`.hex
+
+gforth -p .:tests:include:$GFORTH_LIB_PATH pic-compiler.fp $1 -e end &&
+cat /tmp/pic.asm | ./optimizer.pl >/tmp/pic2.asm
+gpasm -c /tmp/pic2.asm &&
+gplink -O 2 -m -r /tmp/pic2.o -o $HEXFILENAME
+

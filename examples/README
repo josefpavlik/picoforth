@@ -1,0 +1,6 @@
+servo.fp is simple program for pic12f629
+generates 50Hz signal with variable duty cycle for servo motor controll
+pulse width is variable from 1.25ms to 1.75ms (at 50Hz)
+there are 2 buttons, one for down, one for up. Pressing both buttons together, the pulse width is set to 1.5ms.
+There is one LED that shows the up and down limit.
+

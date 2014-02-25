@@ -1,0 +1,77 @@
+study of possibility of compiling program to bytestream
+
+
+helper functions
+
+run
+	movwf	tmp2
+	movff	fsr, spsave
+	decf	rsp, w
+	movwf	fsr
+	movff	rtos+1, indf
+	decf	fsr, f
+	movff	rtos, indf
+	decf	rsp, f
+	decf	rsp, f
+	movff	spsave, fsr
+	clrf	spsave
+	movff	tmp1, rtos
+	movff	tmp2, rtos+1
+	goto	exec		  ; 22
+
+bytestream_return
+	movff	rsp, fsr
+	movff	indf, rtos
+	incf	fsr, f
+	movff	incf, rtos+1
+	incf	fsr, w
+	movwf	rsp
+	movff	spsave, fsr
+	clrf	spsave
+	goto	exec		  ; 14
+    
+get_next_byte
+	movff	rtos+1, pclath
+	incf	rtos+1, f
+	incfsz	rtos, f
+	movwf	rtos+1
+	decf	rtos, w
+	movwf	pcl		  ; 8
+	
+exec
+	call	get_next_byte
+	movwf	tmp1
+	call	get_next_byte
+	movw	pclath
+	movff	tmp1, pcl	  ; 24 (including get_next_byte)
+	
+	
+; this could be the word in bytestream format
+
+word_label
+	movlw	low bytestream_start
+	movwf	tmp1
+	pageselw run
+	movlw	high bytestream_start
+	goto	run			 ; 7
+bytestream_start
+	retlw	low  first_word
+	retlw	high first_word
+	reltw	low  second_word
+	retlw	high second_word
+	retlw	low  bytestream_return
+	retlw	high bytestream_return   
+	
+
+; the called word may be written in assembler, but instead of return must goto bytestream_return
+
+
+bytestream
+67 cycles executed per call word, but only 2 istruction in program
+not allows inlined words
+
+simple call
+6 cycles per call word, 3 instructions in program but only 8 levels of stack
+
+rstack-call
+47 cycles executed per call,  9 instructions in program

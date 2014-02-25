@@ -1,0 +1,19 @@
+programs in this directory are test of (possibly) all words defined in libraries 
+including program construction words like 'if' and 'while'
+
+All tests was ran on simulator, port A is used to display result of test.
+If some test fails, the number of test si flashing on port A.
+If all tests of given program was passed, the 0xff is displayed.
+
+words cs (check stack) and cs8 that are used in test programs tests the stack for 
+given values and if founds that stack does not contains the expected values,
+the error number is flashing on port A. If the port A does not flashing and does not
+displaing 0xff, the test is blocked in point after the displayed number.
+
+example of using word cs:
+1 2 + 4 swap   cs 4 3  $ab
+
+if the stack does not contains 4 and 3 (result of the operation before), the flashing $ab is displayed
+otherwise the program goes to the next test
+
+
